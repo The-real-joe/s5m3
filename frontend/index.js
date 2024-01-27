@@ -4,7 +4,14 @@ function moduleProject3() {
 
   function buildNav(links) {
     //  ✨ do your magic here
-    return document.createElement('nav')
+    const container = document.createElement('nav')
+    links.forEach(link=>{
+      a.href = link.haref
+      a.title = link.title
+      a.textContent = link.textContent
+      container.appendChild(a)
+    })
+    return container
   }
 
   // ❗ DOM creation using your `buildNav` component (do not change):
@@ -20,6 +27,28 @@ function moduleProject3() {
 
   function buildLearnerCard(learner, languages) {
     //  ✨ do your magic here
+    const card = document.createElement('div')
+    card.classList.add('learner-card')
+    const nameP = document.createElement('p')
+    nameP.textContent = learner.fullName
+    const idElement = document.createElement('p')
+    idElement.textContent = "Learner ID: ${learner.id}"
+    const dobP = document.createElement('p')
+    dobP.textContent = "Date of Birth: ${learner.dateOfBirth}"
+    const favLangP = document.createElement('p')
+    const favLanguage = languages.find(lang=> lang.id === learner.favLanguage)
+    favLangP.textContent = "Favorite Language: ${learner.favLanguage.name}";
+    [nameP, idELement, dobP, favLangP].forEach( =>{
+      card.appendChild(p)
+    })
+   
+   card.addEventListener('click', evy =>{
+    document.querySelectorAll('.learner-card').forEach(card =>{
+      card.classList.remove('active')
+    })
+   })
+   
+    return card
   }
 
   {
@@ -40,13 +69,53 @@ function moduleProject3() {
       { id: 17, fullName: 'Daniel Castillo', dateOfBirth: '1995-11-05', favLanguage: 12 }
     ]
     //  ✨ do your magic here
+    learners.forEach(learner =>{
+      const learnerCard = buildLearnerCard(learner, languages)
+      document.querySelector('section').appendChild(learnerCard)
+    })
   }
 
   // 👉 TASK 3 - Write a `buildFooter` component that returns a footer
 
   function buildFooter(footerData) {
     //  ✨ do your magic here
-    return document.createElement('footer')
+    const footer = document.createElement('footer')
+    let companyInfoDiv = document.createElement('div')
+    companyInfoDiv.classList.add('company-info')
+
+    let companyNameP = document.createElement('p')
+    companyNameP.classList.add('company-name')
+    companyNameP.textContent = footerData.companyName
+
+    let addressP = document.createElement('p')
+    addressP.classList.add('address')
+    addressP.textContent = footerData.address
+
+    let contactEmailP = document.createElement('p')
+    contactEmailP.classList.add('contact-ermail'
+    contactEmailP.innerHTML = "Email: <a href="mailto:${footerData.contactEmail}>")
+
+    companyInfoDiv.appendChild(companyNameP)
+    companyInfoDiv.appendChild(addressP)
+    companyInfoDiv.appendChild(contactEmailP)
+
+    let socialMediaDiv = document.createElement('div')
+    socialMediaDiv.classList.add('social-media')
+    for(let platform in footerData.socialMedia){
+      let socialMediaLink = document.createElement('a')
+      socialMediaLink.href = footerData.socialMedia[platform]
+      socialMediaLink.textContent = platform.charAt(0).toUpperCase() + platform.slice(1)
+      socialMediaDiv.appendChild(socialMediaLink)
+    }
+
+    let currentYear = new Date().getFullYear()
+    let copyright= document.createElement('div')
+    copyright.textContent = ' c ${footerData.companyName.toUpperCase()} ${currentYear}'
+
+    footer.appendChild(companyInforDiv)
+    footer.appendChild(socialMediaDiv)
+    footer.appendChild(copyright)
+    return footer
   }
 
   // ❗ DOM creation using your `buildFooter` component (do not change):
@@ -64,7 +133,14 @@ function moduleProject3() {
   // 👉 TASK 4 - Clicking on the section should deactivate the active card
 
   //  ✨ do your magic here
-}
+  document.addEventListener('click', evt => {
+    if (evt.target === document.querySelector('section')) {
+      const learners = document.querySelectorAll('.learner-card')
+      learners.forEach(card => card.classList.remove('active'))
+      })
+    }
+
+
 
 // ❗ DO NOT CHANGE THIS CODE
 // ❗ DO NOT CHANGE THIS CODE
